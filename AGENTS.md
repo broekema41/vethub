@@ -24,6 +24,11 @@
 - Formatting + lint: `spotlessApply` runs before Java compile; `-Werror` is enabled, so warnings fail builds.
 - Liquibase: default `application.yml` uses `contexts: prd`; dev profile (`application-dev.yml`) switches to `contexts: tst` and `drop-first: true`.
 
+## Testing (server/)
+- JUnit 5 tests live under `server/src/test/java`.
+- Unit tests extend `dev.ilionx.workshop.support.UnitTest` for Mockito-based tests without Spring/DB.
+- Integration tests extend `dev.ilionx.workshop.support.IntegrationTest` for Spring + DB tests (extends `WebMvcConfigurator` and cleans DB state between tests).
+
 ## Frontend (client/)
 - Dev server: `bun run dev` (or `npm run dev` if you install with npm).
 - Type checks: `bun run check` (runs `svelte-kit sync` then `svelte-check`).
@@ -32,3 +37,6 @@
 ## OpenAPI sync (repo root)
 - Use `scripts/openapi-sync.sh` to refresh `server/openapi.json` and regenerate frontend types.
 - Script expects backend on port 8080 and uses Bun for type generation.
+
+## Rules
+- When updating functionality we first add a test so that the new feature has a failing test that conforms with the requirements.
